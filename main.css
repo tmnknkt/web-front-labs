@@ -24,6 +24,11 @@ header {
     font-size: 13pt;
 }
 
+a {
+    text-decoration: none;
+    transition: 3s 1s;
+}
+
 a:link {
     text-decoration: underline;
     color: rgb(226, 43, 131);
@@ -47,6 +52,7 @@ a:hover {
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
     color: rgb(249, 29, 29);
+    transition: 5s;
 }
 
 a:active {
