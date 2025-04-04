@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атаманкина Екатерина Романовна. Дополнительное задание</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+        <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+    <style>
+        div.text5 div {
+            display: none;
+        }
+        div.text1 div {
+            display: none;
+        }
+        div.text2 div {
+            display: none;
+        }
+        div.text3 div {
+            display: none;
+        }
+        div.text4 div {
+            display: none;
+        }
+
+        h1:hover + div {
+            display: block;
+        }
+        .text5 {
+            width: 300px;
+            border: 3px groove;
+            display: inline-block;
+            vertical-align: top;
+            padding: 20px;
+            margin: 18px;
+            background-color: #823282;
+            box-shadow: 5px 5px 10px rgb(206, 202, 219);
+            color: rgb(196, 188, 206);
+            border-radius: 10px;
+            transition: 2s;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .text5:hover {
+            cursor: pointer;
+            text-decoration: double; 
+            box-shadow: 5px 5px 10px rgb(0, 0, 0); 
+            font-family: Georgia, 'Times New Roman', Times, serif; 
+            font-weight: bold; 
+            color: rgb(22, 21, 29);
+            background-color: rgb(97, 249, 249);
+            transition: 3s;
+            width: 400px;
+            border: 10px solid rgb(215, 252, 0);
+            vertical-align: top;
+            padding: 25px;
+            margin: 22px;
+            border-radius: 10px;
+            text-indent: 15px;
+            text-align: justify;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 15px;
+        }
+        .text1 {
+            width: 300px;
+            border: 5px double;
+            display: inline-block;
+            vertical-align: top;
+            padding: 15px;
+            margin: 15px;
+            background-color: #466624;
+            box-shadow: 3px 3px 3px rgb(0, 0, 0); 
+            border-radius: 7px;
+            transition: 2s;
+            color: rgb(194, 212, 191);
+        }
+        .text1:hover {
+            cursor: pointer;
+            text-decoration: solid; 
+            box-shadow: 5px 5px 10px rgb(233, 88, 88); 
+            font-family: Arial, Helvetica, sans-serif; 
+            font-weight: bold; 
+            color: rgb(227, 12, 12);
+            background-color: rgb(46, 227, 227);
+            transition: 3s;
+            width: 500px;
+            border: 10px solid;
+            vertical-align: top;
+            padding: 25px;
+            margin: 20px;
+            border-radius: 5px;
+            text-indent: 15px;
+            text-align: justify;
+            font-size: 20px;
+        }
+        .text2 {
+            width: 300px;
+            border: 5px solid rgb(162, 199, 138);
+            display: inline-block;
+            vertical-align: top;
+            padding: 15px;
+            margin: 15px;
+            background-color: #367e7e;
+            color: rgb(194, 109, 12);
+            box-shadow: 7px 7px 7px rgb(124, 114, 176); 
+            border-radius: 7px;
+            transition: 2s;
+        }
+        .text2:hover {
+            cursor: pointer;
+            text-decoration: underline; 
+            box-shadow: 5px 5px 10px rgb(68, 85, 105); 
+            font-family: Arial, Helvetica, sans-serif; 
+            font-weight: normal; 
+            color: rgb(113, 113, 177);
+            background-color: rgb(191, 66, 149);
+            transition: 3s;
+            width: 380px;
+            border: 10px inset;
+            vertical-align: top;
+            padding: 25px;
+            margin: 20px;
+            border-radius: 10px;
+            text-indent: 30px;
+            text-align: justify;
+            font-size: 23px;
+        }
+        .text3 {
+            width: 300px;
+            border: 5px outset rgb(85, 45, 45);
+            display: inline-block;
+            vertical-align: top;
+            padding: 15px;
+            margin: 15px;
+            background-color: #b43e3e;
+            color: rgb(128, 128, 128);
+            box-shadow: 7px 7px 7px rgb(37, 138, 111); 
+            border-radius: 7px;
+            transition: 2s;
+        }
+        .text3:hover {
+            cursor: pointer;
+            text-decoration: overline; 
+            box-shadow: 10px 10px 10px rgb(178, 121, 88); 
+            font-family: cursive;
+            font-weight: lighter; 
+            color: rgb(56, 56, 142);
+            background-color: rgb(184, 149, 136);
+            transition: 3s;
+            width: 460px;
+            border: 10px dashed;
+            vertical-align: top;
+            padding: 25px;
+            margin: 20px;
+            border-radius: 20px;
+            text-indent: 20px;
+            text-align: justify;
+            font-size: 23px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        .text4 {
+            width: 320px;
+            border: 8px ridge rgb(0, 0, 0);
+            display: inline-block;
+            vertical-align: top;
+            padding: 20px;
+            margin: 18px;
+            background-color: #0dd1eb;
+            color: rgb(5, 77, 83);
+            box-shadow: 7px 7px 7px rgb(98, 236, 132); 
+            border-radius: 13px;
+            transition: 2s;
+        }
+        .text4:hover {
+            cursor: pointer;
+            text-decoration: double; 
+            box-shadow: 10px 15px 18px rgb(94, 93, 184); 
+            font-family: cursive;
+            font-weight: lighter; 
+            color: rgb(4, 32, 41);
+            background-color: rgb(65, 37, 97);
+            transition: 3s;
+            width: 280px;
+            border: 10px ridge;
+            vertical-align: top;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            text-indent: 10px;
+            text-align: justify;
+            font-size: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+</html>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 3
+        <hr>
+    </header>
+   
+    <main>
+        <div class="text5">
+            <h1>Винтажный глобус</h1>
+            <div>
+                Сделанный из дерева и картона, этот старый глобус рассказывает истории о давно ушедших империях и неизведанных землях. Его выцветшие цвета и потертые края делают его не просто учебным пособием, а молчаливым свидетелем истории. 
+            </div>
+        </div>
+        <div class="text1">
+            <h1>Кожаный блокнот с ручкой</h1>
+            <div>
+                <b>Переплетенный мягкой, пахнущей кожей, этот блокнот ждет, чтобы его страницы заполнились мечтами, планами и размышлениями. В комплекте идет стальная ручка, готовая без устали записывать все ваши гениальные мысли.</b>
+            </div>
+        </div>
+
+        <div class="text2">
+            <h1>Керамическая кружка ручной работы</h1>
+            <div>
+                Теплая, шероховатая текстура этой кружки идеально подходит для уютного вечера. Уникальный дизайн с переливающимися глазурью создает неповторимое ощущение от каждого глотка. 
+            </div>
+        </div>
+
+        <div class="text3">
+            <h1>Настольная лампа в стиле ретро</h1>
+            <div>
+                <i>Ее теплый, рассеянный свет создает уютную атмосферу, идеально подходящую для чтения или работы. Металлическое основание и стеклянный абажур излучают атмосферу середины века.</i>
+                </div>
+            </div>
+    
+            <div class="text4">
+                <h1>Набор акварельных красок и кистей</h1>
+                <div>
+                    В этом наборе есть все необходимое, чтобы раскрыть свой творческий потенциал. Яркие пигменты и мягкие кисти призывают к спонтанности и самовыражению на бумаге. 
+                </div>
+            </div>
+        </main>
+    
+        <footer>
+            <hr>
+            &copy; Атаманкина Екатерина, ФБИ-33, 2 курс, 2025
+        </footer>
+    </body>
