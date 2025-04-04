@@ -59,3 +59,21 @@ a:active {
     color: black;
     opacity: 0.3;
 }
+
+din.menu {
+    border: 7px solid red;
+    border-radius: 5px;
+    width: 300px
+    margin: 0 auto;
+}
+
+div.menu:hover {
+    background-color: #ffffff30;
+    box-shadow: 0 0 15px #00000030;
+}
+
+h1 {
+    text-align: center;
+    font-style: italic;
+    font-family: 'Times New Roman', Times, serif;
+}
