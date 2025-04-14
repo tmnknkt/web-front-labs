@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атаманкина Екатерина Романовна. Дополнительное задание</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+        <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+        <style>
+            main {
+                font-family: sans-serif;
+                background-color: #e0f2f7;
+                overflow: hidden; /* Предотвращаем появление полос прокрутки */
+            }
+            
+            .tag-cloud {
+                width: 80%;
+                height: 500px;
+                margin: 50px auto;
+                position: relative;
+            }
+            
+            .tag {
+                position: absolute;
+                display: inline-block;
+                padding: 5px 10px;
+                border-radius: 5px;
+                transition: all 0.2s ease-in-out;
+                cursor: pointer;
+                animation-duration: 5s; /* Длительность анимации по умолчанию */
+                animation-timing-function: linear; /* Линейная анимация */
+                animation-iteration-count: infinite; /* Бесконечная анимация */
+            }
+            
+            .tag:hover {
+                transform: scale(1.2) !important;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+                z-index: 10;
+                animation-play-state: paused; /* Приостанавливаем анимацию при наведении */
+            }
+            
+            /* Индивидуальные стили и анимации для тегов */
+            .tag:nth-child(1) {
+                top: 10%;
+                left: 15%;
+                font-size: 20px;
+                color: #2ecc71;
+                transform: rotate(-15deg);
+                animation-name: float1;
+            }
+            
+            @keyframes float1 {
+                0% { transform: translate(0, 0) rotate(-15deg); }
+                50% { transform: translate(10px, 5px) rotate(-15deg); }
+                100% { transform: translate(0, 0) rotate(-15deg); }
+            }
+            
+            .tag:nth-child(2) {
+                top: 25%;
+                left: 40%;
+                font-size: 30px;
+                color: #9b59b6;
+                transform: rotate(10deg);
+                animation-name: float2;
+            }
+            
+            @keyframes float2 {
+                0% { transform: translate(0, 0) rotate(10deg); }
+                50% { transform: translate(-5px, 10px) rotate(10deg); }
+                100% { transform: translate(0, 0) rotate(10deg); }
+            }
+            
+            .tag:nth-child(3) {
+                top: 18%;
+                left: 65%;
+                font-size: 24px;
+                color: #3498db;
+                transform: rotate(-5deg);
+                animation-name: float3;
+                animation-duration: 7s; /* Другая скорость анимации */
+            }
+            
+            @keyframes float3 {
+                0% { transform: translate(0, 0) rotate(-5deg); }
+                50% { transform: translate(8px, -8px) rotate(-5deg); }
+                100% { transform: translate(0, 0) rotate(-5deg); }
+            }
+            
+            .tag:nth-child(4) {
+                top: 40%;
+                left: 25%;
+                font-size: 36px;
+                color: #e74c3c;
+                transform: rotate(8deg);
+                animation-name: float4;
+            }
+            
+            @keyframes float4 {
+                0% { transform: translate(0, 0) rotate(8deg); }
+                50% { transform: translate(-12px, 4px) rotate(8deg); }
+                100% { transform: translate(0, 0) rotate(8deg); }
+            }
+            
+            .tag:nth-child(5) {
+                top: 55%;
+                left: 50%;
+                font-size: 28px;
+                color: #f39c12;
+                transform: rotate(-12deg);
+                animation-name: float5;
+            }
+
+            @keyframes float5 {
+                0% { transform: translate(0, 0) rotate(-12deg); }
+                50% { transform: translate(4px, -12px) rotate(-12deg); }
+                100% { transform: translate(0, 0) rotate(-12deg); }
+            }
+
+            .tag:nth-child(6) {
+                top: 70%;
+                left: 10%;
+                font-size: 18px;
+                color: #8e44ad;
+                transform: rotate(5deg);
+                animation-name: float6;
+            }
+
+            @keyframes float6 {
+                0% { transform: translate(0, 0) rotate(5deg); }
+                50% { transform: translate(7px, 7px) rotate(5deg); }
+                100% { transform: translate(0, 0) rotate(5deg); }
+            }
+
+            .tag:nth-child(7) {
+                top: 60%;
+                left: 70%;
+                font-size: 32px;
+                color: #1abc9c;
+                transform: rotate(-7deg);
+                animation-name: float7;
+            }
+
+            @keyframes float7 {
+                0% { transform: translate(0, 0) rotate(-7deg); }
+                50% { transform: translate(-7px, -7px) rotate(-7deg); }
+                100% { transform: translate(0, 0) rotate(-7deg); }
+            }
+
+            .tag:nth-child(8) {
+                top: 80%;
+                left: 40%;
+                font-size: 26px;
+                color: #c0392b;
+                transform: rotate(12deg);
+                animation-name: float8;
+                animation-duration: 6s;
+            }
+
+            @keyframes float8 {
+                0% { transform: translate(0, 0) rotate(12deg); }
+                50% { transform: translate(10px, -5px) rotate(12deg); }
+                100% { transform: translate(0, 0) rotate(12deg); }
+            }
+
+            .tag:nth-child(9) {
+                top: 35%;
+                left: 80%;
+                font-size: 22px;
+                color: #d35400;
+                transform: rotate(-9deg);
+                animation-name: float9;
+            }
+
+            @keyframes float9 {
+                0% { transform: translate(0, 0) rotate(-9deg); }
+                50% { transform: translate(3px, 9px) rotate(-9deg); }
+                100% { transform: translate(0, 0) rotate(-9deg); }
+            }
+
+            .tag:nth-child(10) {
+                top: 90%;
+                left: 60%;
+                font-size: 34px;
+                color: #2980b9;
+                transform: rotate(4deg);
+                animation-name: float10;
+            }
+
+            @keyframes float10 {
+                0% { transform: translate(0, 0) rotate(4deg); }
+                50% { transform: translate(-9px, -3px) rotate(4deg); }
+                100% { transform: translate(0, 0) rotate(4deg); }
+            }
+
+            .tag:nth-child(11) {
+                top: 5%;
+                left: 50%;
+                font-size: 40px;
+                color: #f1c40f;
+                transform: rotate(10deg);
+                animation-name: float11;
+            }
+
+            @keyframes float11 {
+                0% { transform: translate(0, 0) rotate(10deg); }
+                50% { transform: translate(6px, -6px) rotate(10deg); }
+                100% { transform: translate(0, 0) rotate(10deg); }
+            }
+
+            .tag:nth-child(12) {
+                top: 85%;
+                left: 25%;
+                font-size: 24px;
+                color: #7f8c8d;
+                transform: rotate(-13deg);
+                animation-name: float12;
+                animation-duration: 4s;
+            }
+
+            @keyframes float12 {
+                0% { transform: translate(0, 0) rotate(-13deg); }
+                50% { transform: translate(-2px, 8px) rotate(-13deg); }
+                100% { transform: translate(0, 0) rotate(-13deg); }
+            }
+
+            .tag:nth-child(13) {
+                top: 45%;
+                left: 5%;
+                font-size: 30px;
+                color: #27ae60;
+                transform: rotate(7deg);
+                animation-name: float13;
+            }
+
+            @keyframes float13 {
+                0% { transform: translate(0, 0) rotate(7deg); }
+                50% { transform: translate(8px, 2px) rotate(7deg); }
+                100% { transform: translate(0, 0) rotate(7deg); }
+            }
+
+            .tag:nth-child(14) {
+                top: 10%;
+                left: 80%;
+                font-size: 26px;
+                color: #e67e22;
+                transform: rotate(-2deg);
+                animation-name: float14;
+            }
+
+            @keyframes float14 {
+                0% { transform: translate(0, 0) rotate(-2deg); }
+                50% { transform: translate(-4px, -4px) rotate(-2deg); }
+                100% { transform: translate(0, 0) rotate(-2deg); }
+            }
+
+            .tag:nth-child(15) {
+                top: 75%;
+                left: 90%;
+                font-size: 38px;
+                color: #34495e;
+                transform: rotate(15deg);
+                animation-name: float15;
+            }
+
+            @keyframes float15 {
+                0% { transform: translate(0, 0) rotate(15deg); }
+                50% { transform: translate(10px, 10px) rotate(15deg); }
+                100% { transform: translate(0, 0) rotate(15deg); }
+            }
+
+            .tag:nth-child(16) {
+            top: 20%;
+            left: 5%;
+            font-size: 32px;
+            color: #95a5a6;
+            transform: rotate(-10deg);
+            animation-name: float16;
+            animation-duration: 8s;
+        }
+
+            @keyframes float16 {
+                0% { transform: translate(0, 0) rotate(-10deg); }
+                50% { transform: translate(-10px, 0px) rotate(-10deg); }
+                100% { transform: translate(0, 0) rotate(-10deg); }
+            }
+            .tag:nth-child(17) {
+                top: 90%;
+                left: 45%;
+                font-size: 40px;
+                color: #c189f4;
+                transform: rotate(10deg);
+                animation-name: float17;
+                animation-duration: 9s;
+            }
+
+            @keyframes float17 {
+                0% { transform: translate(0, 0) rotate(10deg); }
+                50% { transform: translate(7px, -4px) rotate(10deg); }
+                100% { transform: translate(0, 0) rotate(10deg); }
+            }
+        </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 4
+    </header>
+
+    <main>
+        <div class="tag-cloud">
+            <span class="tag">аоыды</span>
+            <span class="tag">ыловстды</span>
+            <span class="tag">ывоьл</span>
+            <span class="tag">дялч ь</span>
+            <span class="tag">ывдльм д</span>
+            <span class="tag">жыдвь</span>
+            <span class="tag">вадльи</span>
+            <span class="tag">вальч</span>
+            <span class="tag">воалчт</span>
+            <span class="tag">аосл</span>
+            <span class="tag">аровлчд</span>
+            <span class="tag">шваоьл</span>
+            <span class="tag">жычдс</span>
+            <span class="tag">ывлмь</span>
+            <span class="tag">ыждвбм</span>
+            <span class="tag">юяывл</span>
+          </div>
+    </main>
+
+    <footer>
+        &copy; Атаманкина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
