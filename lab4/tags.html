@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атаманкина Екатерина Романовна. Облако тегов</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+        <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+        <style>
+            body {
+              font-family: sans-serif;
+              background-color: #e0f2f7; /* Светло-голубой фон */
+            }
+            
+            .tag-cloud {
+              width: 80%;
+              height: 500px;
+              margin: 50px auto; /* Центрирование облака */
+              position: relative;
+            }
+            
+            .tag {
+              position: absolute;
+              display: inline-block;
+              padding: 5px 10px;
+              border-radius: 5px;
+              transition: all 0.2s ease-in-out;
+              cursor: pointer;
+            }
+            
+            .tag:hover {
+              transform: scale(1.2) !important; /* Увеличение размера */
+              box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* Тень */
+              z-index: 10; /* Поверх остальных тегов */
+            }
+            
+            /* Стили для разных тегов */
+            .tag:nth-child(1) {
+              top: 10%;
+              left: 15%;
+              font-size: 20px;
+              color: #2ecc71; /* Зеленый */
+              transform: rotate(-15deg);
+            }
+            
+            .tag:nth-child(2) {
+              top: 25%;
+              left: 40%;
+              font-size: 30px;
+              color: #9b59b6; /* Фиолетовый */
+              transform: rotate(10deg);
+            }
+            
+            .tag:nth-child(3) {
+              top: 18%;
+              left: 65%;
+              font-size: 24px;
+              color: #3498db; /* Синий */
+              transform: rotate(-5deg);
+            }
+            
+            .tag:nth-child(4) {
+              top: 40%;
+              left: 25%;
+              font-size: 36px;
+              color: #e74c3c; /* Красный */
+              transform: rotate(8deg);
+            }
+            
+            .tag:nth-child(5) {
+              top: 55%;
+              left: 50%;
+              font-size: 28px;
+              color: #f39c12; /* Оранжевый */
+              transform: rotate(-12deg);
+            }
+            
+            .tag:nth-child(6) {
+              top: 70%;
+              left: 10%;
+              font-size: 18px;
+              color: #8e44ad; /* Темно-фиолетовый */
+              transform: rotate(5deg);
+            }
+            
+            .tag:nth-child(7) {
+              top: 60%;
+              left: 70%;
+              font-size: 32px;
+              color: #1abc9c; /* Бирюзовый */
+              transform: rotate(-7deg);
+            }
+            
+            .tag:nth-child(8) {
+              top: 80%;
+              left: 40%;
+              font-size: 26px;
+              color: #c0392b; /* Темно-красный */
+              transform: rotate(12deg);
+            }
+            
+            .tag:nth-child(9) {
+              top: 35%;
+              left: 80%;
+              font-size: 22px;
+              color: #d35400; /* Тыквенный */
+              transform: rotate(-9deg);
+            }
+            
+            .tag:nth-child(10) {
+              top: 90%;
+              left: 60%;
+              font-size: 34px;
+              color: #2980b9; /* Темно-синий */
+              transform: rotate(4deg);
+            }
+            
+            .tag:nth-child(11) {
+              top: 5%;
+              left: 50%;
+              font-size: 40px;
+              color: #f1c40f; /* Желтый */
+              transform: rotate(10deg);
+            }
+            
+            .tag:nth-child(12) {
+              top: 85%;
+              left: 25%;
+              font-size: 24px;
+              color: #7f8c8d; /* Серый */
+              transform: rotate(-13deg);
+            }
+            
+            .tag:nth-child(13) {
+                top: 45%;
+                left: 5%;
+                font-size: 30px;
+                color: #27ae60; /* Темно-зеленый */
+                transform: rotate(7deg);
+            }
+            
+            .tag:nth-child(14) {
+                top: 10%;
+                left: 80%;
+                font-size: 26px;
+                color: #e67e22; /* Морковный */
+                transform: rotate(-2deg);
+            }
+            
+            .tag:nth-child(15) {
+                top: 75%;
+                left: 90%;
+                font-size: 38px;
+                color: #34495e; /* Темно-синий */
+                transform: rotate(15deg);
+            }
+            
+            .tag:nth-child(16) {
+                top: 20%;
+                left: 5%;
+                font-size: 32px;
+                color: #95a5a6; /* Светло-серый */
+                transform: rotate(-10deg);
+            }
+            .tag:nth-child(17) {
+                top: 90%;
+                left: 45%;
+                font-size: 40px;
+                color: #c189f4; /* светло-пурпурный */
+                transform: rotate(10deg);
+            }
+            
+            </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 4
+    </header>
+
+    <main>
+        <div class="tag-cloud">
+            <span class="tag">аоыды</span>
+            <span class="tag">ыловстды</span>
+            <span class="tag">ывоьл</span>
+            <span class="tag">дялч ь</span>
+            <span class="tag">ывдльм д</span>
+            <span class="tag">жыдвь</span>
+            <span class="tag">вадльи</span>
+            <span class="tag">вальч</span>
+            <span class="tag">воалчт</span>
+            <span class="tag">аосл</span>
+            <span class="tag">аровлчд</span>
+            <span class="tag">шваоьл</span>
+            <span class="tag">жычдс</span>
+            <span class="tag">ывлмь</span>
+            <span class="tag">ыждвбм</span>
+            <span class="tag">юяывл</span>
+          </div>
+    </main>
+
+    <footer>
+        &copy; Атаманкина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
