@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атаманкина Екатерина Романовна. Панель прогресса</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+        <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+        <style>        
+            main {
+              flex-grow: 1; 
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              min-height: 100vh;
+              margin: 0;
+              background-color: #f0f0f0;
+              font-family: sans-serif;
+              text-align: center;
+              
+            }
+        
+            .progress-container {
+              width: 500px;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+        
+            .progress-bar {
+              width: 400px;
+              height: 20px;
+              background-color: #ddd;
+              border-radius: 10px;
+              overflow: hidden;
+              margin-bottom: 20px;
+            }
+        
+            .progress {
+              height: 100%;
+              width: 0%;
+              background-color: #4CAF50;
+              transition: width 0.1s linear;
+            }
+        
+            .button {
+              padding: 10px 20px;
+              background-color: #007bff;
+              color: white;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+              transition: box-shadow 0.2s ease-in-out;
+            }
+        
+            .button:hover {
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            }
+        
+            .button:active {
+              box-shadow: none;
+            }
+          </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 4
+    </header>
+
+    <main>
+        <div class="progress-container">
+            <div>Панель прогресса</div>
+            <div class="progress-bar">
+              <div class="progress" id="progress"></div>
+            </div>
+            <button class="button" id="button">Нажмите и удерживайте</button>
+          </div>
+          <script>
+            const button = document.getElementById('button');
+            const progress = document.getElementById('progress');
+            let intervalId;
+        
+            button.addEventListener('mousedown', () => {
+              button.classList.add('active');
+              let width = 0;
+              intervalId = setInterval(() => {
+                width += 2;
+                progress.style.width = width + '%';
+                if (width >= 100) {
+                  clearInterval(intervalId);
+                }
+              }, 100);
+            });
+        
+            button.addEventListener('mouseup', () => {
+              button.classList.remove('active');
+              clearInterval(intervalId);
+              progress.style.width = '0%';
+            });
+        
+            button.addEventListener('mouseleave', () => {
+              if (button.classList.contains('active')) {
+                button.classList.remove('active');
+                clearInterval(intervalId);
+                progress.style.width = '0%';
+              }
+            });
+          </script>
+    </main>
+
+    <footer>
+        &copy; Атаманкина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
