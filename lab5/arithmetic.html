@@ -77,6 +77,40 @@
             let otnoshenie = a/b;
             alert('Отношение ' + a + ' и ' + b + ' равно ' + otnoshenie);
         }
+        function showStep() {
+            let inputA = document.getElementById('numberA');
+            let inputB = document.getElementById('numberB');
+            let a = parseInt(inputA.value);
+            let b = parseInt(inputB.value);
+
+            if(isNaN(a)) {
+                alert('Введите числовое значение в первое поле');
+                inputA.style.color = 'red';
+                inputA.style.borderColor = 'red';
+                return;
+            }
+            if(isNaN(b)) {
+                alert('Введите числовое значение во второе поле');
+                inputB.style.color = 'red';
+                inputB.style.borderColor = 'red';
+                return;
+            }
+            if(b == 0 & a == 0) {
+                alert('Ошибка!');
+                inputB.style.color = 'red';
+                inputB.style.borderColor = 'red';
+                inputA.style.color = 'red';
+                inputA.style.borderColor = 'red';
+                return;
+            }
+            inputA.style.color = '';
+            inputA.style.borderColor = '';
+            inputB.style.color = '';
+            inputB.style.borderColor = '';
+
+            let stepen = a**b;
+            alert('Возведение ' + a + ' в степень ' + b + ' равно ' + stepen);
+        }
     </script>
     <style>
         header {
@@ -111,6 +145,7 @@
         <div class="message" onclick="showRaz()">Найти разность чисел</div>
         <div class="message" onclick="showPro()">Найти произведение чисел</div>
         <div class="message" onclick="showDiv()">Найти отношение чисел</div>
+        <div class="message" onclick="showStep()">Возведение в степень</div>
 
     </main>
 
