@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атаманкина Екатерина Романовна. Корзина</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+        <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const penInput = document.getElementById('Ручки');
+        const pencilInput = document.getElementById('Карандаши');
+        const notebookInput = document.getElementById('Блокноты');
+        const rulerInput = document.getElementById('Линейки');
+        const eraserInput = document.getElementById('Ластики');
+        const calculateButton = document.getElementById('calculate');
+        const clearButton = document.getElementById('clear');
+        const totalPriceDiv = document.getElementById('total-price');
+    
+        calculateButton.addEventListener('click', function() {
+            const Ручки = parseInt(penInput.value) || 0;
+            const Карандаши = parseInt(pencilInput.value) || 0;
+            const Блокноты = parseInt(notebookInput.value) || 0;
+            const Линейки = parseInt(rulerInput.value) || 0;
+            const Ластики = parseInt(eraserInput.value) || 0;
+    
+            const penPrice = Ручки * 20;
+            const pencilPrice = Карандаши * 10;
+            const notebookPrice = Блокноты * 50;
+            const rulerPrice = Линейки * 30;
+            const eraserPrice = Ластики * 15;
+    
+            const totalPrice = penPrice + pencilPrice + notebookPrice + rulerPrice + eraserPrice;
+    
+            totalPriceDiv.textContent = 'Общая цена: ' + totalPrice + ' р.';
+        });
+    
+        clearButton.addEventListener('click', function() {
+            penInput.value = 0;
+            pencilInput.value = 0;
+            notebookInput.value = 0;
+            rulerInput.value = 0;
+            eraserInput.value = 0;
+            totalPriceDiv.textContent = 'Общая цена: 0 р.';
+        });
+    });
+</script>
+<style>
+    .cart {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-item {
+        margin-bottom: 10px;
+    }
+
+    .cart-item label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .cart-item input {
+        width: 300px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    button {
+        background-color: #c68927;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    button:hover {
+        background-color: #42f30c;
+    }
+
+    #total-price {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+</style>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная 5
+    </header>
+
+    <main>
+        <div class="cart">
+            <div class="cart-item">
+                <label for="Ручки">Ручки (20р/шт):</label>
+                <input type="number" id="Ручки" name="Ручки" min="0" placeholder="Сколько ручек надо?">
+            </div>
+
+            <div class="cart-item">
+                <label for="Карандаши">Карандаши (10р/шт):</label>
+                <input type="number" id="Карандаши" name="Карандаши" min="0" placeholder="Введите количество карандашей">
+            </div>
+
+            <div class="cart-item">
+                <label for="Блокноты">Блокноты (50р/шт):</label>
+                <input type="number" id="Блокноты" name="Блокноты" min="0" placeholder="Сколько блокнотов надо?">
+            </div>
+
+            <div class="cart-item">
+                <label for="Линейки">Линейки (30р/шт):</label>
+                <input type="number" id="Линейки" name="Линейки" min="0" placeholder="Сколько линеек надо?">
+            </div>
+
+            <div class="cart-item">
+                <label for="Ластики">Ластики (15р/шт):</label>
+                <input type="number" id="Ластики" name="Ластики" min="0" placeholder="Сколько ластиков надо?">
+            </div>
+
+            <button id="calculate">Рассчитать</button>
+            <button id="clear">Очистить</button>
+
+            <div id="total-price">Общая цена: 0 р.</div>
+        </div>
+    </main>
+</body>
+
+    <footer>
+        &copy; Атаманкина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
