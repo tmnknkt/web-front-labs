@@ -111,6 +111,18 @@
             let stepen = a**b;
             alert('Возведение ' + a + ' в степень ' + b + ' равно ' + stepen);
         }
+
+            function chageOutput(buttonNum, backColor, textColor, borderType, borderRadius, borderWidth, borderColor) {
+            let output = document.getElementById('output');
+            output.innerHTML = 'Нажата кнопка ' + buttonNum;
+            output.style.backgroundColor = backColor;
+            output.style.color = textColor;
+            output.style.borderStyle = borderType;
+            output.style.borderRadius = borderRadius;
+            output.style.borderWidth = borderWidth;
+            output.style.borderColor = borderColor;
+            }  
+        
     </script>
     <style>
         header {
@@ -119,6 +131,12 @@
         footer {
             cursor: pointer;
         }
+        #output {
+            border: 1px solid;
+            width: 300px;
+            height: 40px;
+        }
+
         .message {
             cursor: pointer;
             display: inline-block;
@@ -146,7 +164,14 @@
         <div class="message" onclick="showPro()">Найти произведение чисел</div>
         <div class="message" onclick="showDiv()">Найти отношение чисел</div>
         <div class="message" onclick="showStep()">Возведение в степень</div>
+        <div>
+            <input type="button" value="Кнопка 1" onclick="chageOutput(1, 'red', 'yellow', 'solid', '5px', '5px', 'black')">
+            <input type="button" value="Кнопка 2" onclick="chageOutput(2, 'black', 'lime', 'dotted', '3px', '7px', 'yellow')">
+            <input type="button" value="Кнопка 3" onclick="chageOutput(3, 'yellow', 'red', 'dashed', '6px', '4px', 'white')">
+            <input type="button" value="Кнопка 4" onclick="chageOutput(4, 'blue', 'black', 'double', '4px', '6px', 'pink')">
+        </div>
 
+        <div id="output"></div>
     </main>
 
     <footer ondblclick="showMessage()">
