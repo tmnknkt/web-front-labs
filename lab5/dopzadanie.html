@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атаманкина Екатерина Романовна. Лабораторная 5</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+        <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+        <style>
+            #blurImage {
+                transition: filter 0.1s ease;
+                cursor: pointer;
+                max-width: 1000px;
+                width: 100%;
+            }
+    
+            #filterInfo {
+                text-align: center;
+                margin-top: 10px;
+            }
+    
+            #helpText {
+                text-align: left;
+                margin-top: 20px;
+                font-size: 17px;
+                color: #e5139c;
+            }
+    
+            #imageContainer {
+                display: flex;
+                justify-content: center;
+            }
+    
+            main {
+                padding: 20px;
+            }
+        </style>
+</head>
+    
+    <body>
+        <header>
+            НГТУ, ФБ, Лабораторная работа 5
+            <hr>
+        </header>
+    
+        <main>
+            <div id="imageContainer">
+                <img src="photo.jpg" id="blurImage">
+            </div>
+            <p id="filterInfo">Фильтр: Нет</p>
+            <p>
+               <p id="helpText">Наведите курсор на изображение для применения фильтра blur<br></p>
+               <p id="helpText">Положение курсора влияет на силу фильтра: слева - минимальная, справа - максимальная<br></p>
+               <p id="helpText">Удерживайте Ctrl, Alt или Shift для применения фильтров grayscale, hue-rotate или saturate соответственно</p>
+            </p>
+        </main>
+
+    <footer>
+        &copy; Атаманкина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+    <script>
+        const image = document.getElementById('blurImage');
+        const filterInfo = document.getElementById('filterInfo');
+
+        image.addEventListener('mousemove', function(event) {
+            const imageWidth = image.offsetWidth;
+            const mouseX = event.clientX - image.getBoundingClientRect().left;
+            let filterValue = (mouseX / imageWidth);
+
+            let filterType = 'blur';
+            let filterAmount;
+
+            if (event.ctrlKey) {
+                filterType = 'grayscale';
+                filterAmount = filterValue * 100;
+            } else if (event.altKey) {
+                filterType = 'hue-rotate';
+                filterAmount = filterValue * 360;
+            } else if (event.shiftKey) {
+                filterType = 'saturate';
+                filterAmount = 50 + filterValue * 150; 
+            } else {
+                filterAmount = filterValue * 10;
+            }
+
+            let filterString = `${filterType}(${filterAmount}${filterType === 'blur' ? 'px' : (filterType === 'hue-rotate' ? 'deg' : '%')})`;
+
+            image.style.filter = filterString;
+            filterInfo.textContent = `Фильтр: ${filterType}(${filterAmount.toFixed(0)}${filterType === 'blur' ? 'px' : (filterType === 'hue-rotate' ? 'deg' : '%')})`;
+        });
+
+        image.addEventListener('mouseleave', function() {
+            image.style.filter = 'none';
+            filterInfo.textContent = 'Фильтр: Нет';
+        });
+    </script>
+</body>
+</html>
