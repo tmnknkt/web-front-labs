@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атаманкина Екатерина Романовна. Лабораторная 6</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+    <style>
+        #dates {
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            color: rgb(35, 17, 202);
+            margin: 20px;
+        }
+
+        #dates p {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 5px solid rgb(227, 12, 141); 
+            background-color: #f9f9f9; 
+            border-radius: 5px;
+        }
+
+        #dates p:nth-child(odd) {
+            background-color: #f0f0f0; 
+        }
+
+        #dates p strong {
+            font-weight: bold;
+            color: #2196F3; 
+        }
+    </style>
+    <script>
+        function showDates() {
+            let out = document.getElementById('dates');
+            let today = new Date();
+            let dates = [
+                { locale: 'ru-RU', label: 'Дата и время для русской локали:' },
+                { locale: 'en-ZA', label: 'Дата и время для локали ЮАР:' },
+                { locale: 'ar-EG', label: 'Дата и время для локали Египта:' },
+                { locale: 'el-GR', label: 'Дата и время для греческой локали:' },
+                { locale: 'en-PK', label: 'Дата и время для пакистанской локали:' },
+                { locale: 'zh-CN', label: 'Дата и время для китайской локали:' }
+            ];
+
+            let html = '';
+            for (let i = 0; i < dates.length; i++) {
+                html += `<p>${dates[i].label} ${today.toLocaleString(dates[i].locale)}</p>`;
+            }
+            out.innerHTML = html;
+        }
+    </script>
+</head>
+<body onload="showDates()">
+    <header>
+        НГТУ, ФБ, Лабораторная работа 6
+        <hr>
+    </header>
+
+    <main>
+        <div id="dates"></div>
+    </main>
+
+    <footer>
+        &copy; Атаманкина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
