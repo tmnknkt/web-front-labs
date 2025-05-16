@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атаманкина Екатерина Романовна. Лабораторная 6</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+    <style>
+        #diag-container {
+            background-color: rgb(255, 209, 209);  
+            padding: 10px;                
+            border-radius: 5px;          
+            box-shadow: 0 2px 5px rgba(87, 31, 31, 0.1); 
+            width: 500px;
+            height: 500px;  
+            display: flex;            
+            justify-content: center;    
+            align-items: flex-end;
+            border: 1px solid rgb(30, 56, 64);
+        }
+
+        #diag {
+            display: flex;             
+            flex-direction: row;    
+            align-items: flex-end;
+            width: 100%;                
+            height: 100%;                
+        }
+
+        .bar {
+            background-color: rgb(47, 51, 87); 
+            margin: 0 2px;             
+            width: 50px;              
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        function showDiagram() {
+            let data = [44, 25, 89, 5, 24, 74, 34, 13, 65, 22];
+            let colors = ['#A3D9FF', '#FFB3C6', '#C3FBD8', '#FFF3B0', '#D5AAFF', '#FFC6A0', '#B4F8C8', '#FFD6E0', '#C9C9FF', '#FDE2FF'];
+            let bars = document.getElementsByClassName('bar');
+            const diagHeight = document.getElementById('diag').clientHeight;
+            const maxData = Math.max(...data);
+            const k = diagHeight / maxData * 0.9;
+            for(let i = 0; i < data.length; i++) {
+                bars[i].style.height = k * data[i] + 'px';
+                bars[i].style.backgroundColor = colors[i];
+                bars[i].innerText = data[i];
+            }
+        }
+    </script>
+</head>
+<body onload="showDiagram()">
+    <header>
+        НГТУ, ФБ, Лабораторная работа 6
+        <hr>
+    </header>
+
+    <main>
+        <div id="diag-container">
+            <div id="diag">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Екатерина Атаманкина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
