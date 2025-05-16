@@ -31,12 +31,14 @@
             background-color: #f0f0f0; 
         }
 
-        #dates p strong {
-            font-weight: bold;
-            color: #2196F3; 
+        header {
+            transition: color 1.5s ease; 
         }
     </style>
     <script>
+            let timerNum; 
+            let dateIntervalId; 
+
         function showDates() {
             let out = document.getElementById('dates');
             let today = new Date();
@@ -51,9 +53,44 @@
 
             let html = '';
             for (let i = 0; i < dates.length; i++) {
-                html += `<p>${dates[i].label} ${today.toLocaleString(dates[i].locale)}</p>`;
+                html += `<p><strong>${dates[i].label}</strong> ${today.toLocaleString(dates[i].locale)}</p>`;
             }
             out.innerHTML = html;
+        }
+        function changeColors() {
+            const header = document.getElementsByTagName('header')[0];
+            const rgbColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`; 
+            header.style.color = rgbColor;
+        }
+
+        function startChangeColors() {
+            changeColors(); 
+            timerNum = setInterval(changeColors, 2500); 
+            document.getElementById('start-btn').disabled = true; 
+            document.getElementById('stop-btn').disabled = false; 
+        }
+
+        function stopChangeColors() {
+            clearInterval(timerNum); 
+            document.getElementById('start-btn').disabled = false; 
+            document.getElementById('stop-btn').disabled = true; 
+        }
+
+        function updateDatesDisplay() {
+            showDates(); 
+        }
+
+        function startUpdateDates() {
+            updateDatesDisplay(); 
+            dateIntervalId = setInterval(updateDatesDisplay, 1000); 
+            document.getElementById('update-dates-btn').disabled = true; 
+            document.getElementById('stop-update-dates-btn').disabled = false; 
+        }
+
+        function stopUpdateDates() {
+            clearInterval(dateIntervalId); 
+            document.getElementById('update-dates-btn').disabled = false; 
+            document.getElementById('stop-update-dates-btn').disabled = true; 
         }
     </script>
 </head>
@@ -65,6 +102,14 @@
 
     <main>
         <div id="dates"></div>
+        <div>
+            <button onclick="startChangeColors()" id="start-btn">Старт</button>
+            <button onclick="stopChangeColors()" disabled id="stop-btn">Стоп</button>
+        </div>
+        <div>
+            <button onclick="startUpdateDates()" id="update-dates-btn">Обновлять время</button>
+            <button onclick="stopUpdateDates()" disabled id="stop-update-dates-btn">Остановить обновление времени</button>
+        </div>
     </main>
 
     <footer>
