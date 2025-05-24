@@ -73,25 +73,35 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <h2 class="h5 card-title"><i class="bi bi-flower1"></i> Цветы</h2>
+                    <div class="mb-3">
+                        <button @click="addFlower" class="btn btn-success btn-sm">
+                            <i class="bi bi-plus-circle"></i> Добавить цветок
+                        </button>
+                    </div>                    
                     <table class="table table-danger">
                         <thead>
                             <tr>
                                 <th>Название</th>
-                                <th>Редактировать</th>
+                                <th>Действия</th>
                             </tr>
                         </thead>
-                        <tr v-for="(flower, id) in flowers">
-                            <td>
-                                <span v-if="flower === null">загружается...</span>
-                                <span v-else>{{ flower }}</span>
-                            </td>
-                            <td>
-                                <button @click="edit(id, flower)" class="btn btn-primary" v-if="flower !== null">
-                                    <i class="bi bi-pen"></i>
-                                </button>
-                                <div class="spinner-border" role="status" v-if="flower === null"></div>
-                            </td>
-                        </tr>
+                        <tbody>
+                            <tr v-for="(flower, id) in flowers">
+                                <td>
+                                    <span v-if="flower === null">загружается...</span>
+                                    <span v-else>{{ flower }}</span>
+                                </td>
+                                <td class="actions">
+                                    <button @click="edit(id, flower)" class="btn btn-sm btn-primary me-1" v-if="flower !== null">
+                                        <i class="bi bi-pen"></i>
+                                    </button>
+                                    <button @click="removeFlower(id)" class="btn btn-sm btn-danger" v-if="flower !== null">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <div class="spinner-border spinner-border-sm" role="status" v-if="flower === null"></div>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -112,7 +122,7 @@
                         </div>
                         <div class="col-auto">    
                             <button @click="sum" class="btn btn-primary">
-                                <i class="bi bi-equals"></i> Посчитать
+                                <i class="bi bi-equals"></i>
                             </button>
                         </div>
                         <div class="col-auto">
@@ -162,6 +172,17 @@
                 },
                 sum() {
                     this.result = this.a + this.b;
+                },
+                removeFlower(id) {
+                    if (confirm('Вы уверены, что хотите удалить этот цветок?')) {
+                        this.flowers.splice(id, 1);
+                    }
+                },
+                addFlower() {
+                    const newFlower = prompt('Введите название нового цветка:');
+                    if (newFlower) {
+                        this.flowers.push(newFlower);
+                    }
                 },
             }
         }).mount('#app');
