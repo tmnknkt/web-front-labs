@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атаманкина Екатерина Романовна. Котировки акций компании Мечел</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        button {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 15px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #1a252f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        #stock-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: 'Arial', sans-serif;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #stock-table th, #stock-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        #stock-table th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        #stock-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        #stock-table tr:hover {
+            background-color: #e9f7ef;
+            transition: background-color 0.2s;
+        }
+        
+        .positive {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .negative {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .zero {
+            color: #7f8c8d;
+        }
+        
+        .stats {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #2c3e50;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .stats p {
+            margin: 10px 0;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+        
+        .stats strong {
+            color: #2c3e50;
+        }
+        
+        .max-price {
+            color: #27ae60;
+            font-weight: bold;
+            background-color: rgba(39, 174, 96, 0.1);
+        }
+        
+        .min-price {
+            color: #e74c3c;
+            font-weight: bold;
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+        
+        .company-header {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+    </style>
+    <script>
+        // Данные по акциям Мечела за май 2025 года (вымышленные)
+        const stockDates = ["02.05.2025", "05.05.2025", "06.05.2025", "07.05.2025", "08.05.2025", "12.05.2025",
+            "13.05.2025", "14.05.2025", "15.05.2025", "16.05.2025"
+        ];
+        const stockPrices = [215.50, 218.20, 217.80, 220.40, 219.75, 222.10, 225.30, 223.90, 224.50, 226.80];
+        
+        function showStockPrices() {
+            let table = document.getElementById('stock-table');
+            let statsDiv = document.getElementById('stock-stats');
+            
+            table.innerHTML = `
+                <tr>
+                    <th>Дата</th>
+                    <th>Цена акций (₽)</th>
+                    <th>Изменение (₽)</th>
+                    <th>Изменение (%)</th>
+                </tr>
+            `;
+            
+            let sum = 0;
+            let maxPrice = Math.max(...stockPrices);
+            let minPrice = Math.min(...stockPrices);
+            
+            for(let i = 0; i < stockDates.length; i++) {
+                let tr = document.createElement('tr');
+                
+                let tdDate = document.createElement('td');
+                tdDate.innerText = stockDates[i];
+                tr.appendChild(tdDate);
+                
+                let tdPrice = document.createElement('td');
+                tdPrice.innerText = stockPrices[i].toFixed(2);
+                
+                if(stockPrices[i] === maxPrice) {
+                    tdPrice.className = "max-price";
+                } else if(stockPrices[i] === minPrice) {
+                    tdPrice.className = "min-price";
+                }
+                
+                tr.appendChild(tdPrice);
+                
+                let tdDiff = document.createElement('td');
+                let tdPercent = document.createElement('td');
+                
+                if(i === 0) {
+                    tdDiff.innerText = "-";
+                    tdPercent.innerText = "-";
+                } else {
+                    let difference = stockPrices[i] - stockPrices[i-1];
+                    let percentChange = (difference / stockPrices[i-1]) * 100;
+                    
+                    tdDiff.innerText = difference.toFixed(2);
+                    tdPercent.innerText = percentChange.toFixed(2) + "%";
+                    
+                    if(difference > 0) {
+                        tdDiff.className = "positive";
+                        tdPercent.className = "positive";
+                    } else if(difference < 0) {
+                        tdDiff.className = "negative";
+                        tdPercent.className = "negative";
+                    } else {
+                        tdDiff.className = "zero";
+                        tdPercent.className = "zero";
+                    }
+                }
+                
+                tr.appendChild(tdDiff);
+                tr.appendChild(tdPercent);
+                
+                table.appendChild(tr);
+                sum += stockPrices[i];
+            }
+            
+            let average = sum / stockPrices.length;
+            let totalChange = stockPrices[stockPrices.length-1] - stockPrices[0];
+            let totalPercentChange = (totalChange / stockPrices[0]) * 100;
+            
+            statsDiv.innerHTML = `
+                <div class="stats">
+                    <div class="company-header">Мечел (MTLR)</div>
+                    <p><strong>Средняя стоимость акции:</strong> ${average.toFixed(2)} ₽</p>
+                    <p><strong>Максимальная стоимость:</strong> <span class="max-price">${maxPrice.toFixed(2)} ₽</span></p>
+                    <p><strong>Минимальная стоимость:</strong> <span class="min-price">${minPrice.toFixed(2)} ₽</span></p>
+                    <p><strong>Начальная цена (02.05):</strong> ${stockPrices[0].toFixed(2)} ₽</p>
+                    <p><strong>Конечная цена (16.05):</strong> ${stockPrices[stockPrices.length-1].toFixed(2)} ₽</p>
+                    <p><strong>Общее изменение:</strong> 
+                        <span class="${totalChange >= 0 ? 'positive' : 'negative'}">${totalChange.toFixed(2)} ₽ (${totalPercentChange.toFixed(2)}%)</span>
+                    </p>
+                </div>
+            `;
+            
+            let button = document.getElementById('show-stock-button');
+            button.style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 7
+        <hr>
+    </header>
+
+    <main>
+        <button id="show-stock-button" onclick="showStockPrices()">Показать курс акций Мечел</button>
+        <table id="stock-table"></table>
+        <div id="stock-stats"></div>
+    </main>
+
+    <footer>
+        &copy; Атаманкина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
