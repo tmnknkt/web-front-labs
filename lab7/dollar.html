@@ -9,20 +9,97 @@
     <link rel="icon" href="../favicon-16x16.png">
     <link rel="icon" href="../favicon-32x32.png">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-        <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
-        <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+    <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+    <link rel="icon" href="favicon-32x32.png" type="image/x-icon">
+    <script src="dollar-data.js"></script>
+    <style>
+        button {
+            background-color: #dc55b3;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 32px;
+            margin: 15px 0;
+            cursor: pointer;
+            border-radius: 7px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #d7a1d0;
+        }
+        
+        #dollar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        #dollar-table th, #dollar-table td {
+            border: 1px solid rgb(107, 116, 194);
+            padding: 8px;
+            text-align: center;
+        }
+        
+        #dollar-table th {
+            background-color: #ddb3d0;
+            color: white;
+        }
+        
+        #dollar-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        #dollar-table tr:hover {
+            background-color: #ddd;
+        }
+        
+        #detail {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #e85b8f;
+            font-size: 1.1em;
+        }
+    </style>
+    <script>
+        function showExchange() {
+            let table = document.getElementById('dollar-table');
+            
+            table.innerHTML = '<tr><th>Курс доллара</th></tr>';
+            
+            let sum = 0;
+            for(let i = 0; i < exchange.length; i++) {
+                let tr = document.createElement('tr');
+                let td = document.createElement('td');
+                td.innerText = exchange[i].toFixed(2);
+                tr.appendChild(td);
+                table.appendChild(tr);
+                sum += exchange[i];
+            }
+            
+            let average = sum / exchange.length;
+            average = average.toFixed(2);
+            let detailDiv = document.getElementById('detail');
+            detailDiv.innerText = `Среднее значение: ${average}`;
+            
+            let button = document.getElementById('show-button');
+            button.style.display = 'none';
+        }
+    </script>
 </head>
 <body>
     <header>
-        НГТУ, ФБ, Лабораторная 7
+        НГТУ, ФБ, Лабораторная работа 7
+        <hr>
     </header>
 
     <main>
-        <h1>Лабораторная работа 7</h1>
-        <ul>
-            <li><a href="bloks.html">Добавление блоков</a></li>
-
-        </ul>
+        <button id="show-button" onclick="showExchange()">Показать курс доллара</button>
+        <table id="dollar-table"></table>
+        <div id="detail"></div>
     </main>
 
     <footer>
