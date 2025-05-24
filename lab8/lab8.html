@@ -24,6 +24,12 @@
             <p>Счетчик: {{ counter }}</p>
             <button @click="incCounter" v-if="counter < 10">++</button>
             <button @click="decCounter" v-if="counter > 0">--</button>
+            <hr>
+
+            <h2>Пользователь:</h2>
+            <div>Имя: {{ user.name }}</div>
+            <div>Возраст: {{ user.age }}</div>
+            <div>Телефон: {{ user.tel }}</div>            
         </div>  
     </main>
 
@@ -36,7 +42,12 @@
                 return {
                     message: 'Hello!',
                     messageRus: 'Привет!',
-                    counter: 1,                    
+                    counter: 1,  
+                    user: {
+                        name: 'Катя',
+                        age: '19',
+                        tel: '221-232-33-44',
+                    },                                      
                 }
             },
             methods: {
