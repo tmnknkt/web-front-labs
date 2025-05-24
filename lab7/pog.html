@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атаманкина Екатерина Романовна. Прогноз погоды</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        button {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 15px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #1a252f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .weather-card {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #2c3e50;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .weather-title {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+            text-align: center;
+            font-size: 22px;
+        }
+        
+        .current-date {
+            text-align: center;
+            font-size: 18px;
+            margin: 15px 0;
+            color: #555;
+            font-weight: bold;
+            padding: 10px;
+            background-color: rgba(44, 62, 80, 0.05);
+            border-radius: 8px;
+        }
+        
+        .weather-time {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .weather-time:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .time-label {
+            font-weight: bold;
+            color: #555;
+            font-size: 16px;
+        }
+        
+        .temperature {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 18px;
+        }
+        
+        .source {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #7f8c8d;
+            text-align: center;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        .source a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .source a:hover {
+            text-decoration: underline;
+        }
+        
+        .weather-container {
+            transition: all 0.3s ease;
+        }
+        
+        /* Стили для разных температур */
+        .hot {
+            color: #e74c3c;
+        }
+        
+        .warm {
+            color: #e67e22;
+        }
+        
+        .cool {
+            color: #3498db;
+        }
+        
+        .cold {
+            color: #2980b9;
+        }
+    </style>
+    <script>
+        function getCurrentDate() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            return now.toLocaleDateString('ru-RU', options);
+        }
+
+        function getTemperatureClass(temp) {
+            if (temp >= 25) return 'hot';
+            if (temp >= 15) return 'warm';
+            if (temp >= 5) return 'cool';
+            return 'cold';
+        }
+
+        function showWeather() {
+            const url = 'https://api.open-meteo.com/v1/forecast?latitude=55.0415&longitude=82.9346&hourly=temperature_2m&timezone=Asia%2FBangkok';
+            fetch(url)
+                .then(function(response){
+                    return response.json();
+                })
+                .then(function(json){
+                    const hourlyTemperatures = json.hourly.temperature_2m;
+                    const today = new Date();
+                    const todayIndex = today.getHours() + today.getMinutes() / 60;
+                    const morningTemperature = hourlyTemperatures[Math.floor(todayIndex)];
+                    const noonTemperature = hourlyTemperatures[Math.floor(todayIndex + 4)];
+                    const eveningTemperature = hourlyTemperatures[Math.floor(todayIndex + 12)];
+                    
+                    showWeatherData(
+                        morningTemperature, 
+                        noonTemperature, 
+                        eveningTemperature
+                    );
+                })
+                .catch(function(error) {
+                    showError("Ошибка при получении данных о погоде. Пожалуйста, попробуйте позже.");
+                });
+        }
+
+        function showWeatherData(morningTemp, noonTemp, eveningTemp) {
+            const container = document.querySelector('.weather-container');
+            const currentDate = getCurrentDate();
+            
+            container.innerHTML = '';
+            
+            const card = document.createElement('div');
+            card.className = 'weather-card';
+            card.innerHTML = `
+                <h3 class="weather-title">Прогноз температуры в Новосибирске</h3>
+                <div class="current-date">${currentDate}</div>
+                
+                <div class="weather-time">
+                    <span class="time-label">8:00 утра:</span>
+                    <span class="temperature ${getTemperatureClass(morningTemp)}">${morningTemp} °C</span>
+                </div>
+                
+                <div class="weather-time">
+                    <span class="time-label">12:00 дня:</span>
+                    <span class="temperature ${getTemperatureClass(noonTemp)}">${noonTemp} °C</span>
+                </div>
+                
+                <div class="weather-time">
+                    <span class="time-label">20:00 вечера:</span>
+                    <span class="temperature ${getTemperatureClass(eveningTemp)}">${eveningTemp} °C</span>
+                </div>
+                
+                <div class="source">
+                    Данные предоставлены <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a>
+                </div>
+            `;
+            
+            container.appendChild(card);
+        }
+        
+        function showError(message) {
+            const container = document.querySelector('.weather-container');
+            container.innerHTML = `
+                <div class="weather-card" style="color: #e74c3c;">
+                    <h3 class="weather-title">Ошибка</h3>
+                    <div>${message}</div>
+                </div>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 7
+        <hr>
+    </header>
+
+    <main>
+        <button onclick="showWeather()">Получить прогноз погоды</button>
+        <div class="weather-container"></div>
+    </main>
+
+    <footer>
+        &copy; Атаманкина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
