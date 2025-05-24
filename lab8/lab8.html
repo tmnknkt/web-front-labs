@@ -37,7 +37,15 @@
                 <li v-for="(flower, id) in flowers">
                     {{ flower }} <button @click="edit(id, flower)">?</button>
                 </li>
-            </ul>           
+            </ul> 
+            <hr>
+
+            <h2>Калькулятор</h2>
+            <input type="number" v-model="a">
+            +
+            <input type="number" v-model="b">
+            <button @click="sum">=</button>
+            <span>{{ result }}</span>                      
         </div>  
     </main>
 
@@ -56,7 +64,10 @@
                         age: '19',
                         tel: '221-232-33-44',
                     },
-                    flowers: ['роза', 'тюльпан', 'маргаритка', 'георгин', 'одуванчик'],                                      
+                    flowers: ['роза', 'тюльпан', 'маргаритка', 'георгин', 'одуванчик'],   
+                    a: 1,
+                    b: 10,
+                    result: '',                                   
                 }
             },
             methods: {
@@ -73,6 +84,9 @@
                     setTimeout(() => {
                         this.flowers[id] = newName;
                     }, 3000);
+                },
+                sum() {
+                    this.result = this.a + this.b;
                 },
             }
         }).mount('#app');
