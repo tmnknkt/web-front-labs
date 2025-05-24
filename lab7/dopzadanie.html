@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Атаманкина Екатерина Романовна. Дополнительное задание</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        button {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 15px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #1a252f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .chart-container {
+            margin: 25px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #2c3e50;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .chart-title {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+            font-size: 22px;
+            text-align: center;
+        }
+        
+        .current-values {
+            margin: 25px 0;
+            padding: 20px;
+            background-color: rgba(44, 62, 80, 0.05);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .value-item {
+            text-align: center;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            flex: 1;
+            margin: 0 10px;
+        }
+        
+        .value-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .value-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        
+        .value-label {
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .chart-date {
+            text-align: center;
+            margin-top: 15px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .footer-spacer {
+            height: 40px;
+        }
+        
+        /* Стили для температур */
+        .hot {
+            color: #e74c3c;
+        }
+        
+        .warm {
+            color: #e67e22;
+        }
+        
+        .cool {
+            color: #3498db;
+        }
+        
+        .cold {
+            color: #2980b9;
+        }
+        
+        /* Стили для влажности */
+        .high-humidity {
+            color: #3498db;
+        }
+        
+        .normal-humidity {
+            color: #2ecc71;
+        }
+        
+        .low-humidity {
+            color: #f39c12;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function getTemperatureClass(temp) {
+            if (temp >= 25) return 'hot';
+            if (temp >= 15) return 'warm';
+            if (temp >= 5) return 'cool';
+            return 'cold';
+        }
+        
+        function getHumidityClass(humidity) {
+            if (humidity >= 70) return 'high-humidity';
+            if (humidity >= 40) return 'normal-humidity';
+            return 'low-humidity';
+        }
+
+        function getWeatherData() {
+            // Запрос прогноза на сегодня
+            const forecastUrl = 'https://api.open-meteo.com/v1/forecast?latitude=55.04&longitude=82.93&hourly=temperature_2m,relative_humidity_2m&forecast_days=1';
+            
+            // Запрос реальных данных за сегодня 
+            const historicalUrl = 'https://api.open-meteo.com/v1/forecast?latitude=55.04&longitude=82.93&hourly=temperature_2m,relative_humidity_2m&past_days=1';
+            
+            // Запрос текущих данных
+            const currentUrl = 'https://api.open-meteo.com/v1/forecast?latitude=55.04&longitude=82.93&current=temperature_2m,relative_humidity_2m';
+
+            // Получаем все данные параллельно
+            Promise.all([
+                fetch(forecastUrl).then(res => res.json()),
+                fetch(historicalUrl).then(res => res.json()),
+                fetch(currentUrl).then(res => res.json())
+            ])
+            .then(([forecastData, historicalData, currentData]) => {
+                displayWeatherData(forecastData, historicalData, currentData);
+            })
+            .catch(error => showError(error));
+        }
+
+        function displayWeatherData(forecastData, historicalData, currentData) {
+            const container = document.querySelector('.weather-container');
+            container.innerHTML = '';
+
+            const currentTemp = currentData.current.temperature_2m;
+            const currentHumidity = currentData.current.relative_humidity_2m;
+
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            const currentValues = document.createElement('div');
+            currentValues.className = 'current-values';
+            currentValues.innerHTML = `
+                <div class="value-item">
+                    <div class="value-number ${getTemperatureClass(currentTemp)}">${currentTemp} °C</div>
+                    <div class="value-label">Текущая температура</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-number ${getHumidityClass(currentHumidity)}">${currentHumidity}%</div>
+                    <div class="value-label">Текущая влажность</div>
+                </div>
+            `;
+            container.appendChild(currentValues);
+
+            createCombinedChart(
+                container, 
+                'Температура: прогноз и фактическая (°C)', 
+                forecastData.hourly.temperature_2m, 
+                historicalData.hourly.temperature_2m, 
+                forecastData.hourly.time, 
+                'temperature-chart', 
+                formattedDate,
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(75, 192, 192, 0.5)'
+            );
+            
+            createHumidityChart(
+                container,
+                'Относительная влажность (%)',
+                historicalData.hourly.relative_humidity_2m,
+                forecastData.hourly.time,
+                'humidity-chart',
+                formattedDate
+            );
+            
+            const spacer = document.createElement('div');
+            spacer.className = 'footer-spacer';
+            container.appendChild(spacer);
+        }
+
+        function createCombinedChart(container, title, forecastValues, historicalValues, times, id, date, forecastColor, actualColor) {
+            const chartContainer = document.createElement('div');
+            chartContainer.className = 'chart-container';
+            
+            const chartTitle = document.createElement('h3');
+            chartTitle.className = 'chart-title';
+            chartTitle.textContent = title;
+            chartContainer.appendChild(chartTitle);
+            
+            const canvas = document.createElement('canvas');
+            canvas.id = id;
+            chartContainer.appendChild(canvas);
+            
+            const dateElement = document.createElement('div');
+            dateElement.className = 'chart-date';
+            dateElement.textContent = `Данные за ${date}`;
+            chartContainer.appendChild(dateElement);
+            
+            container.appendChild(chartContainer);
+            
+            const labels = times.map(time => {
+                const date = new Date(time);
+                return date.toLocaleTimeString('ru-RU', {hour: '2-digit'});
+            });
+            
+            const now = new Date();
+            const currentHour = now.getHours();
+            
+            const ctx = document.getElementById(id).getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Прогноз температуры',
+                            data: forecastValues,
+                            backgroundColor: forecastColor,
+                            borderColor: forecastColor.replace('0.5', '1'),
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Фактическая температура',
+                            data: historicalValues.map((val, i) => i <= currentHour ? val : null),
+                            backgroundColor: actualColor,
+                            borderColor: actualColor.replace('0.5', '1'),
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Температура (°C)',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Время',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw} °C`;
+                                }
+                            }
+                        },
+                        legend: {
+                            labels: {
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function createHumidityChart(container, title, humidityValues, times, id, date) {
+            const chartContainer = document.createElement('div');
+            chartContainer.className = 'chart-container';
+            
+            const chartTitle = document.createElement('h3');
+            chartTitle.className = 'chart-title';
+            chartTitle.textContent = title;
+            chartContainer.appendChild(chartTitle);
+            
+            const canvas = document.createElement('canvas');
+            canvas.id = id;
+            chartContainer.appendChild(canvas);
+            
+            const dateElement = document.createElement('div');
+            dateElement.className = 'chart-date';
+            dateElement.textContent = `Данные за ${date}`;
+            chartContainer.appendChild(dateElement);
+            
+            container.appendChild(chartContainer);
+            
+            const labels = times.map(time => {
+                const date = new Date(time);
+                return date.toLocaleTimeString('ru-RU', {hour: '2-digit'});
+            });
+            
+            const now = new Date();
+            const currentHour = now.getHours();
+            
+            const ctx = document.getElementById(id).getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Относительная влажность',
+                        data: humidityValues,
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(153, 102, 255, 1)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            suggestedMin: 30,
+                            suggestedMax: 100,
+                            title: {
+                                display: true,
+                                text: 'Влажность (%)',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Время',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw}%`;
+                                }
+                            }
+                        },
+                        legend: {
+                            labels: {
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function showError(error) {
+            const container = document.querySelector('.weather-container');
+            container.innerHTML = `
+                <div class="chart-container" style="color: #e74c3c;">
+                    <h3 class="chart-title">Ошибка</h3>
+                    <div>Не удалось получить данные о погоде. Пожалуйста, попробуйте позже.</div>
+                    <div>${error.message}</div>
+                </div>
+            `;
+            
+            const spacer = document.createElement('div');
+            spacer.className = 'footer-spacer';
+            container.appendChild(spacer);
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 7
+        <hr>
+    </header>
+
+    <main>
+        <button onclick="getWeatherData()">Получить данные о погоде</button>
+        <div class="weather-container"></div>
+    </main>
+
+    <footer>
+        &copy; Атаманкина Екатерина, ФБИ-33, 2 курс, 2025
+    </footer>
+</body>
+</html>
